@@ -1,19 +1,31 @@
+{{define "base"}}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>{{block "title" .}}Thomas | Portgolio{{end}}</title>
+    <title>{{block "title" .}}Thomas | Portfolio{{end}}</title>
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
-  </head>  
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
 
   <body>
-    <nav class="p-4 bg-white shadow-md">
-      <h1 class="text-2xl font-semibold">Thomas</h1>
-    </nav>
+    <nav class="fixed top-0 w-full backdrop-blur-md bg-white/30 border-b border-white/20 shadow-sm z-50">
+      <div class="w-full mx-auto flex justify-between items-center px-4 py-2">
+        <img src="../static/Thomas_Gollick_Logo.png" alt="Thomas Gollick Logo" class="w-10" />
 
-    <main class="p-6">
+        <ul class="flex items-center gap-8 text-sm font-semibold text-gray-500">
+          <li><a href="/" class="hover:text-blue-400 hover:cusor-pointer duration-200 ease-in-out">Home</a></li>
+          <li><a href="/projects" class="hover:text-blue-400 hover:cusor-pointer duration-200 ease-in-out">Projects</a></li>
+          <li><a href="/about" class="hover:text-blue-400 hover:cusor-pointer duration-200 ease-in-out">About</a></li>
+          <li><a href="/contact" class="hover:text-blue-400 hover:cusor-pointer duration-200 ease-in-out">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <main>
       {{block "content" .}}{{end}}
     </main>
   </body>
 </html>
+{{end}}
+
