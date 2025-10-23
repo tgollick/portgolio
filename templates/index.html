@@ -1,0 +1,25 @@
+{{define "title"}}Home | Thomas Portgolio{{end}}
+{{template "base.html" .}}
+
+{{define "content"}}
+<h2 class="text-xl font-bold mb-4">Projects</h2>
+
+<div class="grid gap-4">
+  {{range .}}
+  <div class="bg-white rounded-lg shadow p-4">
+    <h3 class="text-lg font-semibold">{{.Title}}</h3>
+    <p class="text-sm text-gray-600 mb-2">{{.Desc}}</p>
+
+    <button
+      hx-get="/project?id={{.ID}}"
+      hx-target="#project-{{.ID}}"
+      hx-swap="innerHTML"
+      class="mt-2 px-3 py-1 bg-blue-600 text-white rounded">
+      Load More
+    </button>
+
+    <div id="project-{{.ID}}" class="mt-2"></div>
+  </div>
+  {{end}}
+</div>
+{{end}}
