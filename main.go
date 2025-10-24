@@ -6,8 +6,6 @@ import (
 	"net/http"
 )
 
-var tmpl *template.Template
-
 type Principle struct {
 	Title string
 	Desc  string
@@ -26,11 +24,14 @@ type Data struct {
 	PageTitle     string
 }
 
-// Parse templates on init
+var (
+	indexTmpl    *template.Template
+	projectsTmpl *template.Template
+)
+
 func init() {
-	t := template.Must(template.ParseGlob("templates/*.html"))
-	t = template.Must(t.ParseGlob("templates/partials/*.html"))
-	tmpl = t
+	indexTmpl = template.Must(template.ParseFiles("templates/base.html", "templates/index.html"))
+	projectsTmpl = template.Must(template.ParseFiles("templates/base.html", "templates/projects.html"))
 }
 
 func main() {
@@ -87,7 +88,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		PageTitle:     "Home | Thomas Portfolio",
 	}
 
-	if err := tmpl.ExecuteTemplate(w, "index", data); err != nil {
+	if err := indexTmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Template error: "+err.Error(), http.StatusInternalServerError)
 		log.Println("template error:", err)
 		return
@@ -100,7 +101,7 @@ func projectsHandler(w http.ResponseWriter, r *http.Request) {
 		PageTitle: "Projects | Thomas Portfolio",
 	}
 
-	if err := tmpl.ExecuteTemplate(w, "projects", data); err != nil {
+	if err := projectsTmpl.ExecuteTemplate(w, "base", data); err != nil {
 		http.Error(w, "Template error: "+err.Error(), http.StatusInternalServerError)
 		log.Println("template error:", err)
 		return
