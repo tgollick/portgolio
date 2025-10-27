@@ -16,6 +16,7 @@ type Project struct {
 	Title string
 	Desc  string
 	Image string
+  Tags []string
 }
 
 type Data struct {
@@ -97,8 +98,30 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func projectsHandler(w http.ResponseWriter, r *http.Request) {
+  projectData := []Project{
+    {
+      Title: "AI Job Matching Platform",
+      Desc:  "Full-stack AI Job Matching platform using TF-IDF alongside Cosine similarity to compare CV's and jobs.",
+      Image: "/static/placeholder.avif",
+      Tags:  []string{"Next.js", "Web3", "Tailwind CSS", "Typescript", "Stripe"},
+    },
+    {
+      Title: "DSG Home Finance",
+      Desc:  "Production Full-stack web application for my father’s business DSG Home Finance.",
+      Image: "/static/placeholder.avif",
+      Tags:  []string{"Next.js", "Web3", "Tailwind CSS", "Typescript", "Stripe"},
+    },
+    {
+      Title: "Therapeutic LLM",
+      Desc:  "Dissertation project providing rich context to reasoning LLM's for improved therapeutic output.",
+      Image: "/static/placeholder.avif",
+      Tags:  []string{"Next.js", "Web3", "Tailwind CSS", "Typescript", "Stripe"},
+    },
+  }
+
 	data := Data{
 		PageTitle: "Projects | Thomas Portfolio",
+    ProjectData: projectData,
 	}
 
 	if err := projectsTmpl.ExecuteTemplate(w, "base", data); err != nil {
